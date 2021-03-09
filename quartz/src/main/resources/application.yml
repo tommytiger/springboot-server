@@ -1,0 +1,72 @@
+server:
+  port: 8080
+
+spring:
+  #数据源配置
+  datasource:
+    druid:
+      driver-class-name: org.postgresql.Driver
+      url: jdbc:postgresql://1.15.146.24:5432/quartz
+      username: windy
+      password: windymama@.com
+
+      #Druid连接池配置
+      type: com.alibaba.druid.pool.DruidDataSource
+      #初始化
+      initialSize: 3
+      #最大值
+      maxActive: 20
+      #最小
+      minIdle: 3
+      #最大等待连接超时时间
+      maxWait: 60000
+        # 打开PSCache,并且指定每个连接PSCache的大小
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        # 配置间隔多久才进行一次检测,检测需要关闭的空闲连接,单位是毫秒
+        timeBetweenEvictionRunsMillis: 60000
+        # 配置一个连接在池中最小生存的时间,单位是毫秒
+        minEvictableIdleTimeMillis: 300000
+        # 配置监控统计拦截的filters,去掉后监控界面sql将无法统计,'wall'用于防火墙
+        filters: stat, wall, log4j
+  #hibernate原语
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    #ddl级别
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+      format-sql: true
+  #quartz配置
+  quartz:
+    properties:
+      org:
+        quartz:
+          #调度器属性
+          scheduler:
+            instanceName: clusteredScheduler
+            instanceId: AUTO
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 10
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: true
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            tablePrefix: QRTZ_
+            isClustered: true
+            clusterCheckinInterval: 10000
+            useProperties: false
+          #数据库方式
+    #数据库方式
+    job-store-type: jdbc
+    #初始化表结构
+    jdbc:
+      initialize-schema: never

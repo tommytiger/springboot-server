@@ -1,0 +1,18 @@
+server:
+  port: 8081
+spring:
+  #数据源配置
+  datasource:
+    url: jdbc:postgresql://localhost:5432/life
+    username:
+    password:
+  #hibernate原语
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    #ddl级别
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+      format-sql: true
