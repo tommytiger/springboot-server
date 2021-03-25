@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-03-11
  */
 @RestController
-@RequestMapping("/com.windy.quartz/schedule-trigger")
+@RequestMapping("/schedule-trigger")
 public class ScheduleTriggerController {
 
 }

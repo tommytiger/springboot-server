@@ -18,6 +18,7 @@ public class QuartzConfig {
     private JobFactory jobFactory;
 
 
+    @Bean
     public SchedulerFactoryBean schedulerFactoryBean() {
         //1.创建SchedulerFactoryBean
         //2.加载自定义的quartz.properties
